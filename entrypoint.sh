@@ -1,5 +1,25 @@
 #!/bin/sh -e
 
+[ -d "${NEXUS_ETC}" ] || mkdir -p "${NEXUS_ETC}"
+chown -R nexus:nexus "${NEXUS_ETC}"
+
+
+for name in `ls -1 /opt/sonatype/nexus/etc`; 
+do
+  if [ -f "${NEXUS_ETC}/$name" ] 
+    then 
+      cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC} 
+    else
+      cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC}/$name_orig
+  fi
+
+done;
+
+
+
+#cp -u -b /opt/sonatype/nexus/etc/* "${NEXUS_ETC}"
+
+
 [ -d "${NEXUS_DATA}" ] || mkdir -p "${NEXUS_DATA}"
 chown -R nexus:nexus "${NEXUS_DATA}"
 

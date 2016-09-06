@@ -1,6 +1,6 @@
 # sonatype/nexus3
 
-A Dockerfile for Sonatype Nexus Repository Manager 3, based on CentOS.
+A Dockerfile for Sonatype Nexus Repository Manager 3, based on java:8-jre-alpine
 
 To run, binding the exposed port 8081 to the host.
 
@@ -54,6 +54,10 @@ process, which runs as UID 200.
   ```
   $ docker run -d -p 8081:8081 --name nexus -e JAVA_MAX_HEAP=768m sonatype/nexus3
   ```
+
+### Configuration
+
+Nexus-Configuration (/opt/org/sonatype/nexus/etc) directory is exported under nexus-etc
 
 
 ### Persistent Data

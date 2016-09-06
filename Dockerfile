@@ -1,22 +1,26 @@
 FROM       java:8-jre-alpine
-MAINTAINER Sonatype <cloud-ops@sonatype.com>
+MAINTAINER Sonatype <spind42@gmail.com>
 
 ENV NEXUS_DATA /nexus-data
 ENV NEXUS_VERSION 3.0.1-01
+ENV NEXUS_ETC /nexus-etc
+
 
 # install nexus
 RUN apk update && apk add openssl && rm -fr /var/cache/apk/*
+  
+
 RUN mkdir -p /opt/sonatype/ \
   && wget https://download.sonatype.com/nexus/3/nexus-${NEXUS_VERSION}-unix.tar.gz -O - \
   | tar zx -C /opt/sonatype/ \
   && mv /opt/sonatype/nexus-${NEXUS_VERSION} /opt/sonatype/nexus
 
-## configure nexus runtime env
+## configure nexus runtime env #/opt/sonatype/nexus/etc|
 RUN sed \
     -e "s|karaf.home=.|karaf.home=/opt/sonatype/nexus|g" \
     -e "s|karaf.base=.|karaf.base=/opt/sonatype/nexus|g" \
-    -e "s|karaf.etc=etc|karaf.etc=/opt/sonatype/nexus/etc|g" \
-    -e "s|java.util.logging.config.file=etc|java.util.logging.config.file=/opt/sonatype/nexus/etc|g" \
+    -e "s|karaf.etc=etc|karaf.etc=${NEXUS_ETC}|g" \
+    -e "s|java.util.logging.config.file=etc|java.util.logging.config.file=${NEXUS_ETC}|g" \
     -e "s|karaf.data=data|karaf.data=${NEXUS_DATA}|g" \
     -e "s|java.io.tmpdir=data/tmp|java.io.tmpdir=${NEXUS_DATA}/tmp|g" \
     -i /opt/sonatype/nexus/bin/nexus.vmoptions
@@ -32,6 +36,8 @@ RUN chown nexus:nexus /opt/sonatype/nexus/etc/
 COPY entrypoint.sh /
 
 VOLUME ${NEXUS_DATA}
+
+VOLUME ${NEXUS_ETC}
 
 EXPOSE 8081
 WORKDIR /opt/sonatype/nexus
