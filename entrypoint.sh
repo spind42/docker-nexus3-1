@@ -1,7 +1,6 @@
 #!/bin/sh -e
 
 [ -d "${NEXUS_ETC}" ] || mkdir -p "${NEXUS_ETC}"
-chown -R nexus:nexus "${NEXUS_ETC}"
 
 
 for name in `ls -1 /opt/sonatype/nexus/etc`; 
@@ -14,6 +13,7 @@ do
   fi
 
 done;
+chown -R nexus:nexus "${NEXUS_ETC}"
 
 
 
