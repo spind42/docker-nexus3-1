@@ -1,4 +1,4 @@
-# sonatype/nexus3
+# spind42/nexus3
 
 A Dockerfile for Sonatype Nexus Repository Manager 3, based on java:8-jre-alpine
 
@@ -58,6 +58,7 @@ process, which runs as UID 200.
 ### Configuration
 
 Nexus-Configuration (/opt/org/sonatype/nexus/etc) directory is exported under nexus-etc
+It contains most of the configuration of Nexus
 
 
 ### Persistent Data
@@ -82,5 +83,6 @@ for additional information.
 
   ```
   $ mkdir /some/dir/nexus-data && chown -R 200 /some/dir/nexus-data
-  $ docker run -d -p 8081:8081 --name nexus -v /some/dir/nexus-data:/nexus-data sonatype/nexus3
+  $ mkdir /some/dir/nexus-etc && chown -R 200 /some/dir/nexus-etc
+  $ docker run -d -p 8081:8081 --name nexus -v /some/dir/nexus-data:/nexus-data -v /some/dir/nexus-etc:/nexus-etc sonatype/nexus3
   ```
