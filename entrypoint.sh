@@ -7,9 +7,9 @@ for name in `ls -1 /opt/sonatype/nexus/etc`;
 do
   if [ -f "${NEXUS_ETC}/$name" ] 
     then 
-      cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC} 
+      cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC}/$name_orig 
     else
-      cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC}/$name_orig
+      cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC}
   fi
 
 done;
