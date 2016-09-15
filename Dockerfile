@@ -1,12 +1,12 @@
 FROM       java:8-jre-alpine
-MAINTAINER Sonatype <spind42@gmail.com>
+MAINTAINER Stephan Spindler <spind42@gmail.com>
 
 ENV NEXUS_DATA /nexus-data
 ENV NEXUS_VERSION 3.0.1-01
 ENV NEXUS_ETC /nexus-etc
 
 
-# install nexus
+# install openssl
 RUN apk update && apk add openssl && rm -fr /var/cache/apk/*
   
 
