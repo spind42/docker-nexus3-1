@@ -19,7 +19,7 @@ RUN mkdir -p /opt/sonatype/ \
 RUN sed \
     -e "s|karaf.home=.|karaf.home=/opt/sonatype/nexus|g" \
     -e "s|karaf.base=.|karaf.base=/opt/sonatype/nexus|g" \
-    -e "s|karaf.etc=etc|karaf.etc=${NEXUS_ETC}|g" \
+#    -e "s|karaf.etc=etc|karaf.etc=${NEXUS_ETC}|g" \
     -e "s|java.util.logging.config.file=etc|java.util.logging.config.file=${NEXUS_ETC}|g" \
     -e "s|karaf.data=data|karaf.data=${NEXUS_DATA}|g" \
     -e "s|java.io.tmpdir=data/tmp|java.io.tmpdir=${NEXUS_DATA}/tmp|g" \
@@ -31,7 +31,8 @@ RUN echo "nexus:x:200:" >> /etc/group
 RUN echo "nexus:!::0:::::" >> /etc/shadow
 
 ## prevent warning: /opt/sonatype/nexus/etc/org.apache.karaf.command.acl.config.cfg (Permission denied)
-RUN chown nexus:nexus /opt/sonatype/nexus/etc/
+RUN chown nexus:nexus /opt/sonatype
+#RUN chown nexus:nexus /opt/sonatype/nexus/etc/
 
 COPY entrypoint.sh /
 
@@ -41,8 +42,8 @@ VOLUME ${NEXUS_ETC}
 
 EXPOSE 8081
 WORKDIR /opt/sonatype/nexus
+#USER nexus
 
-ENV JAVA_MAX_MEM 1200m
 ENV JAVA_MIN_MEM 1200m
 ENV EXTRA_JAVA_OPTS ""
 
