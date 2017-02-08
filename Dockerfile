@@ -2,7 +2,7 @@ FROM       java:8-jre-alpine
 MAINTAINER Stephan Spindler <spind42@gmail.com>
 
 ENV NEXUS_DATA /nexus-data
-ENV NEXUS_VERSION 3.0.1-01
+ENV NEXUS_VERSION 3.2.0-01
 ENV NEXUS_ETC /nexus-etc
 
 

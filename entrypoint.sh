@@ -2,13 +2,17 @@
 
 [ -d "${NEXUS_ETC}" ] || mkdir -p "${NEXUS_ETC}"
 
+echo "new entrypoint"
 
 for name in `ls -1 /opt/sonatype/nexus/etc`; 
 do
+  echo "check file $name"
   if [ -f "${NEXUS_ETC}/$name" ] 
     then 
-      cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC}/$name_orig 
+      echo "write orig $name _orig"
+      cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC}"/"$name"_orig"
     else
+      echo "write initial file"
       cp /opt/sonatype/nexus/etc/$name ${NEXUS_ETC}
   fi
 
